@@ -12,4 +12,4 @@ const UserSchema: Schema = new Schema({
   forms: { type: [String], required: false }
 })
 
-module.exports = mongoose.model<IUser>("Users", UserSchema)
+export default mongoose.model<IUser>("Users", UserSchema)
