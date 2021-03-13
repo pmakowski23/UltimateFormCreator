@@ -11,6 +11,20 @@
 - delete all of the above
 - get id (form) and token (admin user) 
 
+## available form types:
+- text
+- select
+- checkbox
+- radio
+- textarea
+- password
+- email
+- number
+- date
+- time
+- button
+- phone 
+
 # Library (lib hosted on npm)
 - add to your site by
     - creating div with id=”ultimateFormCreator-token-id” 
