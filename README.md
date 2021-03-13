@@ -1,8 +1,26 @@
 # ultimateFormCreator
 
-## Frontend
 
-### made with love ❤️
+# Admin (client)
+- register
+- login
+- add new website to your account
+- add new form to webiste
+- add new fields to form
+- modify all of the above
+- delete all of the above
+- get id (form) and token (admin user) 
+
+# Library (lib hosted on npm)
+- add to your site by
+    - creating div with id=”ultimateFormCreator-token-id” 
+    - creating script tag with src = link to our cdn (hosted on npm)
+- get div from site that lib is connected to with id=”ultimateFormCreator-token-id”
+- send request to get data about the token and id 
+    - if not valid show that in div (some error mess)
+- accordingly to received data render form with all the types and values provided
+   on admin site.
+- handle submit with request to backend
 
 ## Backend
 
@@ -11,12 +29,19 @@
 User
 
 - name: String
-- websites urls: [String]
+- websites: [refs to Webiste]
+- token (got from firebase when register for admin to put on site)
+
+Website
+
+- name
+- url
 - forms: [refs to Form]
 
 Form
 
-- \_id: String
+- id (generated for admin to put on site)
+- name
 - formFields: [embeded FormField]
 
 FormField
@@ -37,3 +62,9 @@ Select (select, checkbox or radio)
 - !whichIsIt: Number (select:1, checkbox:2, radio:3)
 - !values: [String],
 - !defaultChecked: [Boolean], (defaultChecked.len === values.len)
+
+ReceivedForm (handle submit from form and show on site)
+
+- form: ref to Form
+- inputName: [String]
+- inputValue: [String]
