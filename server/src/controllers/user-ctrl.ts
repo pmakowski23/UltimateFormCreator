@@ -31,3 +31,17 @@ export const createUser = async (req: Request, res: Response) => {
     })
   })
 }
+
+// GET /api/users
+
+export const getUsers = async (req: Request, res: Response) => {
+  User.find({}, (error, users) => {
+    if (error) {
+      return res.status(400).json({ success: false, error })
+    }
+    if (!users.length) {
+      return res.status(404).json({ success: false, error: "No users found" })
+    }
+    return res.status(200).json({ success: false, data: users })
+  }).catch(error => console.log(error))
+}

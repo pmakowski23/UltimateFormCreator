@@ -1,9 +1,12 @@
 import express from 'express'
-import { createUser } from '../controllers/user-ctrl'
+import { createUser, getUsers } from '../controllers/user-ctrl'
 
-const router = express.Router();
+const router = express.Router()
 
 // Create user
-router.post("/", createUser);
+router.post("/", createUser)
 
-export default router;
+// Get all users
+router.get("/", getUsers)
+
+export default router
