@@ -2,14 +2,12 @@ import mongoose, { Schema, Document } from 'mongoose'
 
 export interface IUser extends Document {
   name: string;
-  website_urls: Array<String>;
-  forms: Array<String>;
+  token: string;
 }
 
-const UserSchema: Schema = new Schema({
+export const UserSchema: Schema = new Schema({
   name: { type: String, required: true },
-  website_urls: { type: [String], required: false },
-  forms: { type: [String], required: false }
+  token: { type: String, required: true }
 })
 
 export default mongoose.model<IUser>("Users", UserSchema)
