@@ -1,5 +1,11 @@
 import { Request, Response } from 'express'
 import User, { IUser } from '../models/user-model'
+import { Document } from 'mongoose'
+
+const checkIfUnique = async (key: string, value: string) => {
+  const query = await User.find({ [key]: value })
+  return !query.length
+}
 
 // POST /api/users
 export const createUser = async (req: Request, res: Response) => {
@@ -10,6 +16,12 @@ export const createUser = async (req: Request, res: Response) => {
       success: false,
       error: "You must provide user."
     })
+  }
+
+  // Check if token is unique
+  const isUnique = await checkIfUnique("token", body.token)
+  if (!isUnique) {
+    return res.status(400).json({ success: false, error: "Token is not unique." })
   }
 
   try {
@@ -62,7 +74,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // PUT /api/users/:id
 export const updateUser = async (req: Request, res: Response) => {
-  await User.findOne({ _id: req.params.id }, (error: Error, userToUpdate: IUser) => {
+  await User.findOne({ _id: req.params.id }, async (error: Error, userToUpdate: IUser) => {
     if (error) {
       return res.status(400).json({ success: false, error })
     }
@@ -70,16 +82,19 @@ export const updateUser = async (req: Request, res: Response) => {
       return res.status(404).json({ success: false, error: "User with this Id not found." })
     }
 
-    const { name, website_urls, forms } = req.body;
+    const { name, token } = req.body;
 
     if (name) {
       userToUpdate.name = name
     }
-    if (website_urls) {
-      userToUpdate.website_urls = website_urls
-    }
-    if (forms) {
-      userToUpdate.forms = forms
+    if (token) {
+      // Check if token is unique
+      const isUnique = await checkIfUnique("token", token)
+      if (!isUnique) {
+        return res.status(400).json({ success: false, error: "Token is not unique." })
+      }
+
+      userToUpdate.token = token
     }
 
     userToUpdate.save().then(() => {
@@ -93,9 +108,6 @@ export const deleteUser = async (req: Request, res: Response) => {
   await User.findByIdAndDelete(req.params.id, req.body, (error, user) => {
     if (error) {
       return res.status(400).json({ success: false, error })
-    }
-    if (!user) {
-      return res.status(404).json({ success: false, error: "User with this Id not found." })
     }
 
     return res.status(204).json({ success: true, message: "user deleted succesfully" })
