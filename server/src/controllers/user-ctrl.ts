@@ -34,7 +34,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 // GET /api/users
 export const getUsers = async (_: Request, res: Response) => {
-  User.find({}, (error, users) => {
+  await User.find({}, (error, users) => {
     if (error) {
       return res.status(400).json({ success: false, error })
     }
@@ -48,7 +48,7 @@ export const getUsers = async (_: Request, res: Response) => {
 
 // GET /api/users/:id
 export const getUserById = async (req: Request, res: Response) => {
-  User.findOne({ _id: req.params.id }, (error: Error, user: IUser) => {
+  await User.findOne({ _id: req.params.id }, (error: Error, user: IUser) => {
     if (error) {
       return res.status(400).json({ success: false, error })
     }
@@ -62,7 +62,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // PUT /api/users/:id
 export const updateUser = async (req: Request, res: Response) => {
-  User.findOne({ _id: req.params.id }, (error: Error, userToUpdate: IUser) => {
+  await User.findOne({ _id: req.params.id }, (error: Error, userToUpdate: IUser) => {
     if (error) {
       return res.status(400).json({ success: false, error })
     }
@@ -90,4 +90,14 @@ export const updateUser = async (req: Request, res: Response) => {
 
 // DELETE /api/users/:id
 export const deleteUser = async (req: Request, res: Response) => {
+  await User.findByIdAndDelete(req.params.id, req.body, (error, user) => {
+    if (error) {
+      return res.status(400).json({ success: false, error })
+    }
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User with this Id not found." })
+    }
+
+    return res.status(204).json({ success: true, message: "user deleted succesfully" })
+  })
 }

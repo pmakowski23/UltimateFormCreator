@@ -15,4 +15,7 @@ router.get("/:id", getUserById)
 // Update user
 router.put('/:id', updateUser)
 
+// Delete user
+router.delete('/:id', deleteUser)
+
 export default router
