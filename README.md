@@ -1,7 +1,7 @@
 # ultimateFormCreator
 
 
-# Admin (client)
+## Admin (client)
 - register
 - login
 - add new website to your account
@@ -11,7 +11,7 @@
 - delete all of the above
 - get id (form) and token (admin user) 
 
-## available form types:
+### available form types:
 - text
 - select
 - checkbox
@@ -25,7 +25,7 @@
 - button
 - phone 
 
-# Library (lib hosted on npm)
+## Library (lib hosted on npm)
 - add to your site by
     - creating div with id=”ultimateFormCreator-token-id” 
     - creating script tag with src = link to our cdn (hosted on npm)
@@ -43,18 +43,18 @@
 User
 
 - name: String
-- websites: [refs to Webiste]
 - token (got from firebase when register for admin to put on site)
 
 Website
 
+- user: ref to User (admin of the website)
 - name
 - url
-- forms: [refs to Form]
 
 Form
 
-- id (generated for admin to put on site)
+- website: ref to Website (website that this site belongs to)
+- genId (generated for admin to put on site)
 - name
 - formFields: [embeded FormField]
 
