@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
 export interface IForm extends Document {
-  webiste: string;
+  website: string;
   genId: string;
   name: string;
   formField: [string];
