@@ -2,10 +2,12 @@ import { Request, Response } from 'express'
 import User, { IUser } from '../models/user-model'
 import { Document } from 'mongoose'
 
-const checkIfUnique = async (key: string, value: string) => {
-  const query = await User.find({ [key]: value })
-  return !query.length
-}
+import { checkIfUnique } from '../helpers/validators'
+
+// const checkIfUnique = async (key: string, value: string) => {
+//   const query = await User.find({ [key]: value })
+//   return !query.length
+// }
 
 // POST /api/users
 export const createUser = async (req: Request, res: Response) => {
@@ -19,7 +21,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 
   // Check if token is unique
-  const isUnique = await checkIfUnique("token", body.token)
+  const isUnique = await checkIfUnique(User, "token", body.token)
   if (!isUnique) {
     return res.status(400).json({ success: false, error: "Token is not unique." })
   }
@@ -89,7 +91,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
     if (token) {
       // Check if token is unique
-      const isUnique = await checkIfUnique("token", token)
+      const isUnique = await checkIfUnique(User, "token", token)
       if (!isUnique) {
         return res.status(400).json({ success: false, error: "Token is not unique." })
       }
