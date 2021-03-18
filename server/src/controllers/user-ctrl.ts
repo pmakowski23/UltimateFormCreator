@@ -50,10 +50,11 @@ export const updateUser = async (req: Request, res: Response) => {
     }
     if (token) {
       // Check if token is unique
-      const isUnique = await checkIfUnique(User, "token", token)
-      if (!isUnique) {
-        return res.status(400).json({ success: false, error: "Token is not unique." })
-      }
+      // TODO: create this in factory to use validators 
+      // const isUnique = await checkIfUnique(User, "token", token)
+      // if (!isUnique) {
+      //   return res.status(400).json({ success: false, error: "Token is not unique." })
+      // }
 
       userToUpdate.token = token
     }
