@@ -1,7 +1,5 @@
 import { Request, Response } from 'express'
-import User, { IUser } from '../models/user-model'
-import { Document } from 'mongoose'
-
+import User, { IUser } from '../models/users/user-model'
 import { checkIfUnique } from '../helpers/validators'
 
 // const checkIfUnique = async (key: string, value: string) => {

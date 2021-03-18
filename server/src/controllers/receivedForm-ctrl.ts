@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import ReceivedForm, { IReceivedForm } from '../models/receivedForm-model'
+import ReceivedForm, { IReceivedForm } from '../models/forms/receivedForm-model'
 
 // POST /api/receivedForms
 export const createReceivedForm = async (req: Request, res: Response) => {

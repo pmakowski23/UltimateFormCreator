@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Select, { ISelect } from '../models/select-model'
+import Select, { ISelect } from '../models/forms/select-model'
 
 // POST /api/selects
 export const createSelect = async (req: Request, res: Response) => {

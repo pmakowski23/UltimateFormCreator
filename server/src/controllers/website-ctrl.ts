@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Website, { IWebsite } from '../models/website-model'
+import Website, { IWebsite } from '../models/users/website-model'
 
 // POST /api/websites
 export const createWebsite = async (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import FormField, { IFormField } from '../models/formField-model'
+import FormField, { IFormField } from '../models/forms/formField-model'
 
 // POST /api/formFields
 export const createFormField = async (req: Request, res: Response) => {
