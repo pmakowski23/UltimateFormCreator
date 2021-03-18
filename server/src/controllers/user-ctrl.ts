@@ -1,48 +1,9 @@
 import { Request, Response } from 'express'
 import User, { IUser } from '../models/users/user-model'
 import { checkIfUnique } from '../helpers/validators'
+import { factoryCreateEndpoint } from '../helpers/ctrl-factory'
 
-// const checkIfUnique = async (key: string, value: string) => {
-//   const query = await User.find({ [key]: value })
-//   return !query.length
-// }
-
-// POST /api/users
-export const createUser = async (req: Request, res: Response) => {
-  const body = req.body;
-
-  if (!body) {
-    return res.status(400).json({
-      success: false,
-      error: "You must provide user."
-    })
-  }
-
-  // Check if token is unique
-  const isUnique = await checkIfUnique(User, "token", body.token)
-  if (!isUnique) {
-    return res.status(400).json({ success: false, error: "Token is not unique." })
-  }
-
-  try {
-    var user = new User(body);
-  } catch (error) {
-    return res.status(400).json({ success: false, error })
-  }
-
-  user.save().then(() => {
-    return res.status(201).json({
-      success: true,
-      id: user._id,
-      message: "User created."
-    })
-  }).catch((error) => {
-    return res.status(400).json({
-      error,
-      message: "User not created due to error."
-    })
-  })
-}
+export const createUser = factoryCreateEndpoint(User);
 
 // GET /api/users
 export const getUsers = async (_: Request, res: Response) => {
