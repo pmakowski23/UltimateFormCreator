@@ -17,6 +17,7 @@ services:
       - "5000:5000"
     networks:
       - mern-app
+      - backend
     depends_on:
       - mongo
     volumes:
@@ -26,11 +27,13 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - mern-app
+      - backend
     volumes:
       - mongo-data:/data/db
 networks:
   mern-app:
+    driver: bridge
+  backend:
     driver: bridge
 volumes:
   mongo-data:
