@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
-import { IModelTypes, IModel, IModelKeys, anyOfTypes } from './models'
+import { IModelTypes, IModel, anyOfTypes } from './models'
 import { IValidators, IAdditionalValues } from './validators';
 import mongoose, { CallbackError, QueryOptions } from 'mongoose'
 import capitalize from './capitalize'
 
 export type IAdditionalLogic = [
   {
-    validator: IValidators[keyof IValidators],
-    additionalVariables: IAdditionalValues[keyof IAdditionalValues]
+    validator: anyOfTypes<IValidators>
+    additionalVariables: anyOfTypes<IAdditionalValues>
   }
 ]
 
@@ -75,55 +75,61 @@ export const factoryGetAllEndpoint =
 export const factoryGetOneByIdEndpoint =
   (model: anyOfTypes<IModelTypes>) =>
     async (req: Request, res: Response) => {
-      await model.findOne({ _id: req.params.id }, (error: Error, object: IModel[keyof IModel]) => {
-        if (error) {
-          return res.status(400).json({ success: false, error })
-        }
-        if (!object) {
-          return res.status(404).json({ success: false, error: "User with this Id not found." })
-        }
+      try {
+        await model.findOne({ _id: req.params.id }, (error: Error, object: IModel[keyof IModel]) => {
+          if (error) {
+            return res.status(400).json({ success: false, error })
+          }
+          if (!object) {
+            return res.status(404).json({ success: false, error: "User with this Id not found." })
+          }
 
-        return res.status(200).json({ success: true, data: object })
-      }).catch(error => console.log(error))
+          return res.status(200).json({ success: true, data: object })
+        })
+      } catch (error) {
+        return res.status(400).json({ success: false, error })
+      }
     }
 
 export const factoryUpdateEndpoint =
   (model: anyOfTypes<IModelTypes>, additionalLogic?: IAdditionalLogic) =>
     async (req: Request, res: Response) => {
-      await model.findOne({ _id: req.params.id }, async (error: Error, objectToUpdate: any) => {
-        if (error) {
-          return res.status(400).json({ success: false, error })
-        }
-        if (!objectToUpdate) {
-          return res.status(404).json({ success: false, error: "User with this Id not found." })
-        }
-
-        if (additionalLogic) {
-          try {
-            for (const element in additionalLogic) {
-              const { validator, additionalVariables } = additionalLogic[element]
-              await validator(additionalVariables, req.body)
-            }
-          } catch (error) {
-            console.log(error)
+      try {
+        await model.findOne({ _id: req.params.id }, async (error: Error, objectToUpdate: any) => {
+          if (error) {
             return res.status(400).json({ success: false, error })
-          } finally {
-            console.log("All validation succeeded")
           }
-        }
+          if (!objectToUpdate) {
+            return res.status(404).json({ success: false, error: "User with this Id not found." })
+          }
 
-        const body = <IModel[keyof IModel]>req.body
-        for (let [key, value] of Object.entries(body)) {
-          objectToUpdate[key] = value
-        }
+          if (additionalLogic) {
+            try {
+              for (const element in additionalLogic) {
+                const { validator, additionalVariables } = additionalLogic[element]
+                await validator(additionalVariables, req.body)
+              }
+            } catch (error) {
+              console.log(error)
+              return res.status(400).json({ success: false, error })
+            }
+          }
 
-        try {
-          objectToUpdate.save()
-          return res.status(200).json({ success: true, data: objectToUpdate })
-        } catch (error) {
-          return res.status(400).json({ success: false, error })
-        }
-      })
+          const body = <IModel[keyof IModel]>req.body
+          for (let [key, value] of Object.entries(body)) {
+            objectToUpdate[key] = value
+          }
+
+          try {
+            objectToUpdate.save()
+            return res.status(200).json({ success: true, data: objectToUpdate })
+          } catch (error) {
+            return res.status(400).json({ success: false, error })
+          }
+        })
+      } catch (error) {
+        return res.status(400).json({ success: false, error })
+      }
     }
 
 // TODO: create rest methods.
@@ -132,8 +138,12 @@ export const factoryUpdateEndpoint =
 export const factoryDeleteEndpoint =
   (model: anyOfTypes<IModelTypes>, options?: QueryOptions) =>
     async (req: Request, res: Response) => {
-      await model.deleteOne({ _id: req.params.id }, options, (error: CallbackError) => {
-        if (error) return res.status(400).json({ success: false, error })
-        return res.status(204).json()
-      })
+      try {
+        await model.deleteOne({ _id: req.params.id }, options, (error: CallbackError) => {
+          if (error) return res.status(400).json({ success: false, error })
+          return res.status(204).json()
+        })
+      } catch (error) {
+        return res.status(400).json({ success: false, error })
+      }
     }
