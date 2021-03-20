@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose'
 import { ISelect, SelectSchema } from './select-model'
 
-export interface IFormField extends Document {
+export interface FormFieldData {
   label: string;
   field_type: string;
   isRequired: boolean;
@@ -12,6 +12,9 @@ export interface IFormField extends Document {
   maxValue: string;
   Select: ISelect;
   pattern: string;
+}
+
+export interface IFormField extends FormFieldData, Document {
 }
 
 export const FormFieldSchema: Schema = new Schema({

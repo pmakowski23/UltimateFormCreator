@@ -1,10 +1,13 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
-export interface IForm extends Document {
+export interface FormData {
   website: string;
   genId: string;
   name: string;
   formField: [string];
+}
+
+export interface IForm extends FormData, Document {
 }
 
 export const FormSchema: Schema = new Schema({

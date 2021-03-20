@@ -1,9 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
-export interface ISelect extends Document {
+export interface SelectData {
   whichSelect: number,
   values: [string];
   defaultCheck: [boolean];
+}
+
+export interface ISelect extends SelectData, Document {
 }
 
 export const SelectSchema: Schema = new Schema({

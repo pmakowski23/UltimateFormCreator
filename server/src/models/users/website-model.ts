@@ -1,9 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
-export interface IWebsite extends Document {
+export interface WebsiteData {
   user: string;
   name: string;
   url: string;
+}
+
+export interface IWebsite extends WebsiteData, Document {
 }
 
 export const WebsiteSchema: Schema = new Schema({
