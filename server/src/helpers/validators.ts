@@ -1,8 +1,8 @@
-import { IModelTypes, IModelKeys, IModel } from './models'
+import { IModelTypes, IModelKeys, IModel, anyOfTypes } from './models'
 
 interface ICheckIfUnique {
-  model: IModelTypes[keyof IModelTypes]
-  key: IModelKeys[keyof IModelKeys]
+  model: anyOfTypes<IModelTypes>
+  key: anyOfTypes<IModelKeys>
 }
 
 export interface IAdditionalValues {

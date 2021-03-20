@@ -14,6 +14,8 @@ export interface IModelTypes {
   website: typeof Website;
 }
 
+export type anyOfTypes<T> = T[keyof T]
+
 export interface IModelKeys {
   form: keyof IForm;
   formField: keyof IFormField;
