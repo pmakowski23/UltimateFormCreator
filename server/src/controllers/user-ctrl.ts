@@ -1,19 +1,23 @@
 import { Request, Response } from 'express'
 import User, { IUser } from '../models/users/user-model'
 import { checkIfUnique } from '../helpers/validators'
-import { factoryCreateEndpoint } from '../helpers/ctrl-factory'
+import {
+  factoryCreateEndpoint,
+  factoryGetAllEndpoint,
+  IAdditionalLogic
+} from '../helpers/ctrl-factory'
 
-export const createUser = factoryCreateEndpoint(User);
-
-// GET /api/users
-export const getUsers = async (_: Request, res: Response) => {
-  await User.find({}, (error, users) => {
-    if (error) {
-      return res.status(400).json({ success: false, error })
+// POST /api/users
+const createValidation: IAdditionalLogic = [
+  {
+    validator: checkIfUnique,
+    additionalVariables: {
+      model: User,
+      key: "token"
     }
-    if (!users.length) {
-      return res.status(404).json({ success: false, error: "No users found." })
-    }
+  }
+]
+export const createUser = factoryCreateEndpoint(User, createValidation);
 
     return res.status(200).json({ success: false, data: users })
   }).catch(error => console.log(error))

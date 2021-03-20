@@ -1,8 +1,23 @@
-import { IModel } from './models'
+import { IModelTypes, IModelKeys, IModel } from './models'
 
-export const checkIfUnique = async (model: IModel[keyof IModel], key: string, value: string) => {
-  const isUnique = !await model.findOne({ [key]: value })
+interface ICheckIfUnique {
+  model: IModelTypes[keyof IModelTypes]
+  key: IModelKeys[keyof IModelKeys]
+}
+
+export interface IAdditionalValues {
+  checkIfUnique: ICheckIfUnique
+}
+
+export interface IValidators {
+  checkIfUnique: typeof checkIfUnique
+}
+
+export const checkIfUnique = async (attributes: ICheckIfUnique, body: any) => {
+  const { model, key } = attributes
+  const value = body[key]
+  const isUnique = ! await model.findOne({ [key]: value })
   if (!isUnique) {
-    throw new Error(`${key} "${value}" is not unique!`)
+    throw `${key} is not unique!`
   }
 }
