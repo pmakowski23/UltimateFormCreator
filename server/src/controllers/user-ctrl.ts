@@ -19,9 +19,8 @@ const createValidation: IAdditionalLogic = [
 ]
 export const createUser = factoryCreateEndpoint(User, createValidation);
 
-    return res.status(200).json({ success: false, data: users })
-  }).catch(error => console.log(error))
-}
+// GET /api/users
+export const getUsers = factoryGetAllEndpoint(User)
 
 // GET /api/users/:id
 export const getUserById = async (req: Request, res: Response) => {

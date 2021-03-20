@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { IModelTypes } from './models'
 import { IValidators, IAdditionalValues } from './validators';
+import mongoose from 'mongoose'
+import capitalize from './capitalize'
 
 // TODO: Add validation option
 
@@ -49,6 +51,28 @@ export const factoryCreateEndpoint =
         return res.status(400).json({ success: false, error })
       }
     }
+
+export const factoryGetAllEndpoint =
+  (model: IModelTypes[keyof IModelTypes]) => {
+    const modelName = capitalize(model.collection.name)
+    return async (_: Request, res: Response) => {
+      try {
+        await mongoose.model(modelName).find({}, (error, users) => {
+          if (error) {
+            return res.status(400).json({ success: false, error })
+          }
+          if (!users.length) {
+            return res.status(404).json({ success: false, error: "No users found." })
+          }
+
+          return res.status(200).json({ success: false, data: users })
+        })
+      } catch (error) {
+        console.log(error)
+        return res.status(400).json({ success: false, error })
+      }
+    }
+  }
 
 // TODO: create rest methods.
 // TODO: Implement them in rest of the models.
