@@ -1,4 +1,4 @@
-import User, { IUser } from '../models/users/user-model'
+import User from '../models/users/user-model'
 import { checkIfUnique } from '../helpers/validators'
 import {
   factoryCreateEndpoint,
