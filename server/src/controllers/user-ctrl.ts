@@ -1,8 +1,8 @@
-import { Request, Response } from 'express'
 import User, { IUser } from '../models/users/user-model'
 import { checkIfUnique } from '../helpers/validators'
 import {
   factoryCreateEndpoint,
+  factoryDeleteEndpoint,
   factoryGetAllEndpoint,
   factoryGetOneByIdEndpoint,
   factoryUpdateEndpoint,
@@ -31,12 +31,4 @@ export const getUserById = factoryGetOneByIdEndpoint(User)
 export const updateUser = factoryUpdateEndpoint(User)
 
 // DELETE /api/users/:id
-export const deleteUser = async (req: Request, res: Response) => {
-  await User.findByIdAndDelete(req.params.id, req.body, (error, user) => {
-    if (error) {
-      return res.status(400).json({ success: false, error })
-    }
-
-    return res.status(204).json({ success: true, message: "user deleted succesfully" })
-  })
-}
+export const deleteUser = factoryDeleteEndpoint(User)

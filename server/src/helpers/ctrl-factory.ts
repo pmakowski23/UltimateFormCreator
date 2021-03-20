@@ -128,3 +128,12 @@ export const factoryUpdateEndpoint =
 
 // TODO: create rest methods.
 // TODO: Implement them in rest of the models.
+
+export const factoryDeleteEndpoint =
+  (model: anyOfTypes<IModelTypes>, options?: QueryOptions) =>
+    async (req: Request, res: Response) => {
+      await model.deleteOne({ _id: req.params.id }, options, (error: CallbackError) => {
+        if (error) return res.status(400).json({ success: false, error })
+        return res.status(204).json()
+      })
+    }
