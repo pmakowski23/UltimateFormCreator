@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IModelTypes } from './models'
+import { IModelTypes, IModel } from './models'
 import { IValidators, IAdditionalValues } from './validators';
 import mongoose from 'mongoose'
 import capitalize from './capitalize'
@@ -73,6 +73,21 @@ export const factoryGetAllEndpoint =
       }
     }
   }
+
+export const factoryGetOneByIdEndpoint =
+  (model: IModelTypes[keyof IModelTypes]) =>
+    async (req: Request, res: Response) => {
+      await model.findOne({ _id: req.params.id }, (error: Error, user: IModel[keyof IModel]) => {
+        if (error) {
+          return res.status(400).json({ success: false, error })
+        }
+        if (!user) {
+          return res.status(404).json({ success: false, error: "User with this Id not found." })
+        }
+
+        return res.status(200).json({ success: true, data: user })
+      }).catch(error => console.log(error))
+    }
 
 // TODO: create rest methods.
 // TODO: Implement them in rest of the models.
