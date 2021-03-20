@@ -23,7 +23,7 @@ const actions: IMatched = {
     action: updateForm
   },
   deleteForm: {
-    method: "post",
+    method: "delete",
     url: '/:id',
     action: deleteForm
   },
