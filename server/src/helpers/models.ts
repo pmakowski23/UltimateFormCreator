@@ -1,9 +1,9 @@
-import Form, { IForm } from '../models/forms/form-model'
-import FormField, { IFormField } from '../models/forms/formField-model'
-import ReceivedForm, { IReceivedForm } from '../models/forms/receivedForm-model'
-import Select, { ISelect } from '../models/forms/select-model'
-import User, { IUser } from '../models/users/user-model'
-import Website, { IWebsite } from '../models/users/website-model'
+import Form, { FormData, IForm } from '../models/forms/form-model'
+import FormField, { FormFieldData, IFormField } from '../models/forms/formField-model'
+import ReceivedForm, { IReceivedForm, ReceivedFormData } from '../models/forms/receivedForm-model'
+import Select, { ISelect, SelectData } from '../models/forms/select-model'
+import User, { IUser, UserData } from '../models/users/user-model'
+import Website, { IWebsite, WebsiteData } from '../models/users/website-model'
 
 export interface IModelTypes {
   form: typeof Form;
@@ -17,12 +17,21 @@ export interface IModelTypes {
 export type anyOfTypes<T> = T[keyof T]
 
 export interface IModelKeys {
-  form: keyof IForm;
-  formField: keyof IFormField;
-  receivedForm: keyof IReceivedForm;
-  select: keyof ISelect;
-  user: keyof IUser;
-  website: keyof IWebsite;
+  form: keyof FormData;
+  formField: keyof FormFieldData;
+  receivedForm: keyof ReceivedFormData;
+  select: keyof SelectData;
+  user: keyof UserData;
+  website: keyof WebsiteData;
+}
+
+export interface IModelData {
+  form: FormData;
+  formField: FormFieldData;
+  receivedForm: ReceivedFormData;
+  select: SelectData;
+  user: UserData;
+  website: WebsiteData;
 }
 
 export interface IModel {
