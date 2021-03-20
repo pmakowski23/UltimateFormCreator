@@ -2,26 +2,26 @@ version: "3"
 services:
   react-app:
     build: ./client
-    restart: always
     stdin_open: true
     ports:
       - "3000:3000"
     networks:
       - mern-app
     volumes:
-      - ./client/:/usr/src/app/client/
+      - ./client/:/usr/src/app
+      - /usr/src/app/node_modules
   api-server:
     build: ./server
-    restart: always
     ports:
       - "5000:5000"
     networks:
       - mern-app
       - backend
+    volumes:
+      - ./server/:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - mongo
-    volumes:
-      - ./server/:/usr/src/app/server/
   mongo:
     image: mongo:4.0.23-xenial
     ports:
