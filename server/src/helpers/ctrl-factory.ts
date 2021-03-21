@@ -4,12 +4,12 @@ import { IValidators, IAdditionalValues } from './validators';
 import mongoose, { CallbackError, QueryOptions } from 'mongoose'
 import capitalize from './capitalize'
 
-export type IAdditionalLogic = [
+export type IAdditionalLogic =
   {
     validator: anyOfTypes<IValidators>
     additionalVariables: anyOfTypes<IAdditionalValues>
-  }
-]
+  }[]
+
 
 export const factoryCreateEndpoint =
   (model: anyOfTypes<IModelTypes>, additionalLogic?: IAdditionalLogic) =>
