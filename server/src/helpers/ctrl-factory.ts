@@ -19,7 +19,7 @@ export const factoryCreateEndpoint =
       if (!body) {
         return res.status(400).json({
           success: false,
-          error: `You must provide ${model.constructor.name}.`
+          error: `You must provide ${capitalize(model.collection.name)}.`
         })
       }
 
@@ -43,7 +43,7 @@ export const factoryCreateEndpoint =
         return res.status(201).json({
           success: true,
           id: object._id,
-          message: "Form created."
+          message: `${capitalize(model.collection.name)} created.`
         })
       } catch (error) {
         return res.status(400).json({ success: false, error })
@@ -81,7 +81,7 @@ export const factoryGetOneByIdEndpoint =
             return res.status(400).json({ success: false, error })
           }
           if (!object) {
-            return res.status(404).json({ success: false, error: "User with this Id not found." })
+            return res.status(404).json({ success: false, error: `${capitalize(model.collection.name)} with this Id not found.` })
           }
 
           return res.status(200).json({ success: true, data: object })
@@ -100,7 +100,7 @@ export const factoryUpdateEndpoint =
             return res.status(400).json({ success: false, error })
           }
           if (!objectToUpdate) {
-            return res.status(404).json({ success: false, error: "User with this Id not found." })
+            return res.status(404).json({ success: false, error: `${capitalize(model.collection.name)} with this Id not found.` })
           }
 
           if (additionalLogic) {
@@ -131,9 +131,6 @@ export const factoryUpdateEndpoint =
         return res.status(400).json({ success: false, error })
       }
     }
-
-// TODO: create rest methods.
-// TODO: Implement them in rest of the models.
 
 export const factoryDeleteEndpoint =
   (model: anyOfTypes<IModelTypes>, options?: QueryOptions) =>
