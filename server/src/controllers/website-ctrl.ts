@@ -1,4 +1,5 @@
 import Website from '../models/users/website-model'
+import { checkIfUnique } from '../helpers/validators'
 import {
   factoryCreateEndpoint,
   factoryDeleteEndpoint,
@@ -9,7 +10,23 @@ import {
 } from '../helpers/ctrl-factory'
 
 // POST /api/websites
-export const createWebsite = factoryCreateEndpoint(Website)
+const createValidation: IAdditionalLogic = [
+  {
+    validator: checkIfUnique,
+    additionalVariables: {
+      model: Website,
+      key: "name"
+    }
+  },
+  {
+    validator: checkIfUnique,
+    additionalVariables: {
+      model: Website,
+      key: "url"
+    }
+  }
+]
+export const createWebsite = factoryCreateEndpoint(Website, createValidation)
 
 // GET /api/websites
 export const getWebsites = factoryGetAllEndpoint(Website)
