@@ -9,8 +9,8 @@ export interface IUser extends UserData, Document {
 }
 
 export const UserSchema: Schema = new Schema({
-  name: { type: String, required: true },
-  token: { type: String, required: true }
+  name: { type: String, required: [true, "Name is required"] },
+  token: { type: String, required: [true, "Token is required"] }
 })
 
 export default mongoose.model<IUser>("Users", UserSchema)

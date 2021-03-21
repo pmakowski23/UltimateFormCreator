@@ -18,9 +18,9 @@ export interface IFormField extends FormFieldData, Document {
 }
 
 export const FormFieldSchema: Schema = new Schema({
-  label: { type: String, required: true },
-  field_type: { type: String, required: true }, // TODO: must be one of html types 
-  isRequired: { type: Boolean, required: true },
+  label: { type: String, required: [true, "Label is required"] },
+  field_type: { type: String, required: [true, "FieldType is required"] }, // TODO: must be one of html types 
+  isRequired: { type: Boolean, required: [true, "IsRequired is required"] },
 
   placeholder: { type: String, required: false }, // TODO: less than 40 characters
   target: { type: String, required: false }, // TODO: must be only one of html types
