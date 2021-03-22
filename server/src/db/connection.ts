@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 
 const connectionString = "mongodb://mongo:27017/FormCreator";
 
-export const initMongoConnection = async () => {
+export const initMongoConnection = async (): Promise<mongoose.Connection> => {
   try {
     await mongoose.connect(connectionString, {
       useUnifiedTopology: true,

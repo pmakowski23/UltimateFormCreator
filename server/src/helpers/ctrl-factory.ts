@@ -7,7 +7,7 @@ import { IAdditionalLogic } from './additionalLogic';
 
 export const factoryCreateEndpoint =
   (model: anyOfTypes<IModelTypes>, additionalLogic?: IAdditionalLogic) =>
-    async (req: Request, res: Response) => {
+    async (req: Request, res: Response): Promise<Response | undefined> => {
       const body = req.body;
 
       if (!body) {
@@ -42,9 +42,9 @@ export const factoryCreateEndpoint =
     }
 
 export const factoryGetAllEndpoint =
-  (model: anyOfTypes<IModelTypes>) => {
-    const modelName = capitalize(model.collection.name)
-    return async (_: Request, res: Response) => {
+  (model: anyOfTypes<IModelTypes>) =>
+    async (_: Request, res: Response): Promise<Response | undefined> => {
+      const modelName = capitalize(model.collection.name)
       try {
         await mongoose.model(modelName).find({}, (error, objects) => {
           if (error) {
@@ -60,13 +60,12 @@ export const factoryGetAllEndpoint =
         return res.status(400).json({ success: false, error })
       }
     }
-  }
 
 export const factoryGetOneByIdEndpoint =
   (model: anyOfTypes<IModelTypes>) =>
-    async (req: Request, res: Response) => {
+    async (req: Request, res: Response): Promise<Response | undefined> => {
       try {
-        await model.findOne({ _id: req.params.id }, (error: Error, object: IModel[keyof IModel]) => {
+        await model.findOne({ _id: req.params.id }, (error: Error, object: anyOfTypes<IModel>) => {
           if (error) {
             return res.status(400).json({ success: false, error })
           }
@@ -83,9 +82,9 @@ export const factoryGetOneByIdEndpoint =
 
 export const factoryUpdateEndpoint =
   (model: anyOfTypes<IModelTypes>, additionalLogic?: IAdditionalLogic) =>
-    async (req: Request, res: Response) => {
+    async (req: Request, res: Response): Promise<Response | undefined> => {
       try {
-        await model.findOne({ _id: req.params.id }, async (error: Error, objectToUpdate: any) => {
+        await model.findOne({ _id: req.params.id }, async (error: Error, objectToUpdate: anyOfTypes<IModel>) => {
           if (error) {
             return res.status(400).json({ success: false, error })
           }
@@ -104,9 +103,9 @@ export const factoryUpdateEndpoint =
             }
           }
 
-          const body = <IModel[keyof IModel]>req.body
-          for (let [key, value] of Object.entries(body)) {
-            objectToUpdate[key] = value
+          const body = req.body
+          for (const [key, value] of Object.entries(body)) {
+            await objectToUpdate.update({ [key]: value })
           }
 
           try {
@@ -123,11 +122,11 @@ export const factoryUpdateEndpoint =
 
 export const factoryDeleteEndpoint =
   (model: anyOfTypes<IModelTypes>, options?: QueryOptions) =>
-    async (req: Request, res: Response) => {
+    async (req: Request, res: Response): Promise<Response | undefined> => {
       try {
         await model.deleteOne({ _id: req.params.id }, options, (error: CallbackError) => {
           if (error) return res.status(400).json({ success: false, error })
-          return res.status(204).json()
+          return res.status(204).json({ success: false, error })
         })
       } catch (error) {
         return res.status(400).json({ success: false, error })

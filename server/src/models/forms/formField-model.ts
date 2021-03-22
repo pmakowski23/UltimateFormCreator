@@ -19,15 +19,43 @@ export interface IFormField extends FormFieldData, Document {
 
 export const FormFieldSchema: Schema = new Schema({
   label: { type: String, required: [true, "Label is required"] },
-  field_type: { type: String, required: [true, "FieldType is required"] }, // TODO: must be one of html types 
+  field_type:
+  {
+    type: String,
+    enum: [
+      "text",
+      "select",
+      "checkbox",
+      "radio",
+      "textarea",
+      "password",
+      "email",
+      "number",
+      "date",
+      "time",
+      "button",
+      "phone"
+    ],
+    required: [true, "FieldType is required"]
+  },
   isRequired: { type: Boolean, required: [true, "IsRequired is required"] },
 
-  placeholder: { type: String, required: false }, // TODO: less than 40 characters
-  target: { type: String, required: false }, // TODO: must be only one of html types
+  placeholder: { type: String, required: false },
+  target: { type: String, enum: ["_blank", "_self", "_parent", "_top"], required: false },
   isDisabled: { type: Boolean, required: false },
   minValue: { type: Number, required: false },
-  maxValue: { type: Number, required: false },
-  Select: { type: SelectSchema, required: false }, // TODO: is required when field_type === select | checkbox | radio
+  maxValue: {
+    type: Number, required: false, validation: {
+      validator: function (this: IFormField) {
+        return false // TODO: It's not doign anything
+      }
+    }
+  },
+  Select: {
+    type: SelectSchema, required: function (this: IFormField) {
+      return this.field_type === ("select" || "checkbox" || "radio");
+    }
+  },
   pattern: { type: String, required: false } // TODO: must be valid regex
 })
 

@@ -1,12 +1,12 @@
 import { SelectData } from '../models/forms/select-model'
-import { anyOfTypes, IModelTypes, IModelKeys } from './models'
+import { anyOfTypes, IModelTypes } from './models'
 
 export interface ICheckIfUnique<T, K> {
   model: T
   key: K
 }
 
-export const checkIfUnique = async <T, K extends keyof T>(attributes: ICheckIfUnique<anyOfTypes<IModelTypes>, K>, body: T) => {
+export const checkIfUnique = async <T, K extends keyof T>(attributes: ICheckIfUnique<anyOfTypes<IModelTypes>, K>, body: T): Promise<void> => {
   const { model, key } = attributes
   const value = body[key]
   const isUnique = ! await model.findOne({ [key]: value })
@@ -15,7 +15,7 @@ export const checkIfUnique = async <T, K extends keyof T>(attributes: ICheckIfUn
   }
 }
 
-export const checkLengthSelect = (_: any, body: SelectData) => {
+export const checkLengthSelect = (_: any, body: SelectData): void => {
   const areTheSameLength = body.values.length === body.defaultCheck.length
   if (!areTheSameLength) {
     throw `Values and DefaultCheck must be the same length!`
