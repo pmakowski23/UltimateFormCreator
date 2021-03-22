@@ -6,25 +6,28 @@ import {
   factoryGetAllEndpoint,
   factoryGetOneByIdEndpoint,
   factoryUpdateEndpoint,
-  IAdditionalLogic
 } from '../helpers/ctrl-factory'
+import { anyOfTypes } from '../helpers/models'
+import { IAdditionalLogicElement, ILogic, IAdditionalLogic, IAdditionalValues } from '../helpers/additionalLogic'
 
 // POST /api/websites
-const createValidation: IAdditionalLogic = [
-  {
-    validator: checkIfUnique,
-    additionalVariables: {
-      model: Website,
-      key: "name"
-    }
-  },
-  {
-    validator: checkIfUnique,
-    additionalVariables: {
-      model: Website,
-      key: "url"
-    }
+const checkIfNameIsUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+  validator: checkIfUnique,
+  additionalVariables: {
+    model: Website,
+    key: "name"
   }
+}
+const checkIfUrlIsUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+  validator: checkIfUnique,
+  additionalVariables: {
+    model: Website,
+    key: "url"
+  }
+}
+const createValidation: IAdditionalLogic = [
+  checkIfNameIsUnique,
+  checkIfUrlIsUnique
 ]
 export const createWebsite = factoryCreateEndpoint(Website, createValidation)
 

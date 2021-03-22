@@ -1,14 +1,8 @@
 import { Request, Response } from 'express'
 import { IModelTypes, IModel, anyOfTypes } from './models'
-import { IValidators, IAdditionalValues } from './validators';
 import mongoose, { CallbackError, QueryOptions } from 'mongoose'
 import capitalize from './capitalize'
-
-export type IAdditionalLogic =
-  {
-    validator: anyOfTypes<IValidators>
-    additionalVariables: anyOfTypes<IAdditionalValues>
-  }[]
+import { IAdditionalLogic } from './additionalLogic';
 
 
 export const factoryCreateEndpoint =

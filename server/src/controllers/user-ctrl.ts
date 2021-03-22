@@ -6,18 +6,21 @@ import {
   factoryGetAllEndpoint,
   factoryGetOneByIdEndpoint,
   factoryUpdateEndpoint,
-  IAdditionalLogic
 } from '../helpers/ctrl-factory'
+import { anyOfTypes } from '../helpers/models';
+import { IAdditionalLogicElement, IAdditionalLogic, ILogic, IAdditionalValues } from '../helpers/additionalLogic';
+
+const checkTokenIfUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+  validator: checkIfUnique,
+  additionalVariables: {
+    model: User,
+    key: "token"
+  }
+}
 
 // POST /api/users
 const createValidation: IAdditionalLogic = [
-  {
-    validator: checkIfUnique,
-    additionalVariables: {
-      model: User,
-      key: "token"
-    }
-  }
+  checkTokenIfUnique
 ]
 export const createUser = factoryCreateEndpoint(User, createValidation);
 

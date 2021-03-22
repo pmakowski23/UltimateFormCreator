@@ -4,8 +4,7 @@ import {
   factoryDeleteEndpoint,
   factoryGetAllEndpoint,
   factoryGetOneByIdEndpoint,
-  factoryUpdateEndpoint,
-  IAdditionalLogic
+  factoryUpdateEndpoint
 } from '../helpers/ctrl-factory'
 
 // POST /api/receivedForms

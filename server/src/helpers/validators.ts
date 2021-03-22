@@ -1,16 +1,9 @@
+import { SelectData } from '../models/forms/select-model'
 import { anyOfTypes, IModelTypes, IModelKeys } from './models'
 
-interface ICheckIfUnique<T, K> {
+export interface ICheckIfUnique<T, K> {
   model: T
   key: K
-}
-
-export interface IAdditionalValues {
-  checkIfUnique: ICheckIfUnique<anyOfTypes<IModelTypes>, anyOfTypes<IModelKeys>>
-}
-
-export interface IValidators {
-  checkIfUnique: typeof checkIfUnique
 }
 
 export const checkIfUnique = async <T, K extends keyof T>(attributes: ICheckIfUnique<anyOfTypes<IModelTypes>, K>, body: T) => {
@@ -19,5 +12,12 @@ export const checkIfUnique = async <T, K extends keyof T>(attributes: ICheckIfUn
   const isUnique = ! await model.findOne({ [key]: value })
   if (!isUnique) {
     throw `${key} is not unique!`
+  }
+}
+
+export const checkLengthSelect = (_: any, body: SelectData) => {
+  const areTheSameLength = body.values.length === body.defaultCheck.length
+  if (!areTheSameLength) {
+    throw `Values and DefaultCheck must be the same length!`
   }
 }
