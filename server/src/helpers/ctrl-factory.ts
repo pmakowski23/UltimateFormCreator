@@ -19,7 +19,7 @@ export const factoryCreateEndpoint =
       if (!body) {
         return res.status(400).json({
           success: false,
-          error: `You must provide ${capitalize(model.collection.name)}.`
+          error: `You must provide ${capitalize(model.collection.name.slice(0, -1))}.`
         })
       }
 
@@ -30,10 +30,7 @@ export const factoryCreateEndpoint =
             await validator(additionalVariables, req.body)
           }
         } catch (error) {
-          console.log(error)
           return res.status(400).json({ success: false, error })
-        } finally {
-          console.log("All validation succeeded")
         }
       }
 
@@ -43,7 +40,7 @@ export const factoryCreateEndpoint =
         return res.status(201).json({
           success: true,
           id: object._id,
-          message: `${capitalize(model.collection.name)} created.`
+          message: `${capitalize(model.collection.name.slice(0, -1))} created.`
         })
       } catch (error) {
         return res.status(400).json({ success: false, error })
@@ -60,13 +57,12 @@ export const factoryGetAllEndpoint =
             return res.status(400).json({ success: false, error })
           }
           if (!objects.length) {
-            return res.status(404).json({ success: false, error: "No objects found." })
+            return res.status(404).json({ success: false, error: `No ${model.collection.name} found.` })
           }
 
           return res.status(200).json({ success: false, data: objects })
         })
       } catch (error) {
-        console.log(error)
         return res.status(400).json({ success: false, error })
       }
     }
@@ -100,7 +96,7 @@ export const factoryUpdateEndpoint =
             return res.status(400).json({ success: false, error })
           }
           if (!objectToUpdate) {
-            return res.status(404).json({ success: false, error: `${capitalize(model.collection.name)} with this Id not found.` })
+            return res.status(404).json({ success: false, error: `${capitalize(model.collection.name.slice(0, -1))} with this Id not found.` })
           }
 
           if (additionalLogic) {
@@ -110,7 +106,6 @@ export const factoryUpdateEndpoint =
                 await validator(additionalVariables, req.body)
               }
             } catch (error) {
-              console.log(error)
               return res.status(400).json({ success: false, error })
             }
           }
