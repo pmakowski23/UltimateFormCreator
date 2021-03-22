@@ -15,4 +15,4 @@ export const ReceivedFormSchema: Schema = new Schema({
   inputValue: { type: [String], required: [true, "InputValue is required"] }
 })
 
-export default mongoose.model<IReceivedForm>("ReceivedForms", ReceivedFormSchema)
+export default mongoose.model<IReceivedForm>("Receivedforms", ReceivedFormSchema)

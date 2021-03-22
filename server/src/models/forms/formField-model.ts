@@ -31,4 +31,4 @@ export const FormFieldSchema: Schema = new Schema({
   pattern: { type: String, required: false } // TODO: must be valid regex
 })
 
-export default mongoose.model<ISelect>("FormFields", FormFieldSchema)
+export default mongoose.model<ISelect>("Formfields", FormFieldSchema)
