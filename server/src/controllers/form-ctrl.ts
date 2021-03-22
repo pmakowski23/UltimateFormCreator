@@ -6,9 +6,30 @@ import {
   factoryGetOneByIdEndpoint,
   factoryUpdateEndpoint
 } from '../helpers/ctrl-factory'
+import { IAdditionalLogicElement, IAdditionalLogic, ILogic, IAdditionalValues } from '../helpers/additionalLogic';
+import { anyOfTypes } from '../helpers/models';
+import { checkIfUnique } from '../helpers/validators';
 
 // POST /api/forms
-export const createForm = factoryCreateEndpoint(Form)
+const checkNameIfUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+  validator: checkIfUnique,
+  additionalVariables: {
+    model: Form,
+    key: "name"
+  }
+}
+const checkGenIdIfUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+  validator: checkIfUnique,
+  additionalVariables: {
+    model: Form,
+    key: "genId"
+  }
+}
+const createValidation: IAdditionalLogic = [
+  checkNameIfUnique,
+  checkGenIdIfUnique
+]
+export const createForm = factoryCreateEndpoint(Form, createValidation)
 
 // GET /api/forms
 export const getForms = factoryGetAllEndpoint(Form)

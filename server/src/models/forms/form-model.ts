@@ -12,8 +12,8 @@ export interface IForm extends FormData, Document {
 
 export const FormSchema: Schema = new Schema({
   website: { type: mongoose.Schema.Types.ObjectId, ref: 'Websites', required: [true, "Website is required"] },
-  genId: { type: String, required: true }, // TODO: must be generated and unique among forms in webiste ()
-  name: { type: String, required: true }, // TODO: must be unique
+  genId: { type: String, required: true },
+  name: { type: String, required: true },
   formField: { type: [mongoose.Schema.Types.ObjectId], required: [true, "FormField is required"] }
 })
 
