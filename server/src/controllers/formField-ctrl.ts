@@ -8,15 +8,20 @@ import {
 } from '../helpers/ctrl-factory'
 import { IAdditionalLogicElement, ILogic, IAdditionalValues, IAdditionalLogic } from '../helpers/additionalLogic'
 import { anyOfTypes } from '../helpers/models'
-import { checkIfMaxIsLoverThanMin } from '../helpers/validators'
+import { checkIfMaxIsLoverThanMin, checkIfRegexIsValid } from '../helpers/validators'
 
 // POST /api/formFields
 const checkMaxIsHeigher: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfMaxIsLoverThanMin"]> = {
   validator: checkIfMaxIsLoverThanMin,
   additionalVariables: null
 }
+const checkRegexIfIsValid: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfRegexIsValid"]> = {
+  validator: checkIfRegexIsValid,
+  additionalVariables: null
+}
 const createValidation: IAdditionalLogic = [
   checkMaxIsHeigher,
+  checkRegexIfIsValid,
 ]
 export const createFormField = factoryCreateEndpoint(FormField, createValidation)
 

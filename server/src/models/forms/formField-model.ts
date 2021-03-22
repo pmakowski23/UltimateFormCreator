@@ -51,7 +51,7 @@ export const FormFieldSchema: Schema = new Schema({
       return this.field_type === ("select" || "checkbox" || "radio");
     }
   },
-  pattern: { type: String, required: false } // TODO: must be valid regex 
+  pattern: { type: String, required: false }
 })
 
 export default mongoose.model<ISelect>("Formfields", FormFieldSchema)

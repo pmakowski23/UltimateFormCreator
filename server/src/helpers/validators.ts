@@ -24,10 +24,21 @@ export const checkLengthSelect = (_: any, body: SelectData): void => {
 }
 
 export const checkIfMaxIsLoverThanMin = (_: any, body: FormFieldData): void => {
-  if (body.maxValue && body.minValue) {
+  if (body.maxValue !== undefined && body.minValue !== undefined) {
     const isMaxHigher = body.maxValue > body.minValue
+    console.log(isMaxHigher)
     if (!isMaxHigher) {
       throw 'MaxValue must be higher than MinValue'
+    }
+  }
+}
+
+export const checkIfRegexIsValid = (_: any, body: FormFieldData): void => {
+  if (body.pattern) {
+    try {
+      new RegExp(body.pattern)
+    } catch {
+      throw `Your pattern is not valid regex`
     }
   }
 }
