@@ -6,9 +6,19 @@ import {
   factoryGetOneByIdEndpoint,
   factoryUpdateEndpoint
 } from '../helpers/ctrl-factory'
+import { IAdditionalLogicElement, ILogic, IAdditionalValues, IAdditionalLogic } from '../helpers/additionalLogic'
+import { anyOfTypes } from '../helpers/models'
+import { checkIfMaxIsLoverThanMin } from '../helpers/validators'
 
 // POST /api/formFields
-export const createFormField = factoryCreateEndpoint(FormField)
+const checkMaxIsHeigher: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfMaxIsLoverThanMin"]> = {
+  validator: checkIfMaxIsLoverThanMin,
+  additionalVariables: null
+}
+const createValidation: IAdditionalLogic = [
+  checkMaxIsHeigher,
+]
+export const createFormField = factoryCreateEndpoint(FormField, createValidation)
 
 // GET /api/formFields
 export const getFormFields = factoryGetAllEndpoint(FormField)

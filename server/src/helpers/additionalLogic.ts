@@ -1,5 +1,5 @@
 import { anyOfTypes, IModelKeys, IModelTypes } from "./models"
-import { checkIfUnique, checkLengthSelect, ICheckIfUnique } from "./validators"
+import { checkIfMaxIsLoverThanMin, checkIfUnique, checkLengthSelect, ICheckIfUnique } from "./validators"
 
 export type IAdditionalLogicElement<T extends anyOfTypes<ILogic>, K extends anyOfTypes<IAdditionalValues>> =
   {
@@ -13,9 +13,11 @@ export type IAdditionalLogic = IAdditionalLogicElement<anyOfTypes<ILogic>, anyOf
 export interface ILogic {
   checkIfUnique: typeof checkIfUnique
   checkLengthSelect: typeof checkLengthSelect
+  checkIfMaxIsLoverThanMin: typeof checkIfMaxIsLoverThanMin
 }
 
 export interface IAdditionalValues {
   checkIfUnique: ICheckIfUnique<anyOfTypes<IModelTypes>, anyOfTypes<IModelKeys>>
   checkLengthSelect: null
+  checkIfMaxIsLoverThanMin: null
 }
