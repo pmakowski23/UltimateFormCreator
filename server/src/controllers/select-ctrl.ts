@@ -7,12 +7,12 @@ import {
   factoryUpdateEndpoint,
 } from '../helpers/ctrl-factory'
 import { checkLengthSelect } from '../helpers/validators';
-import { IAdditionalLogicElement, IAdditionalLogic, IAdditionalValues } from '../helpers/additionalLogic';
+import { IAdditionalLogicElement, IAdditionalLogic } from '../helpers/additionalLogic';
 
 // POST /api/selects
-const checkIfLengthIsEqual: IAdditionalLogicElement<typeof checkLengthSelect, IAdditionalValues["checkLengthSelect"]> = {
+const checkIfLengthIsEqual: IAdditionalLogicElement<typeof checkLengthSelect> = {
   validator: checkLengthSelect,
-  additionalVariables: null
+  additionalVariables: undefined
 }
 const createValidation: IAdditionalLogic = [
   checkIfLengthIsEqual

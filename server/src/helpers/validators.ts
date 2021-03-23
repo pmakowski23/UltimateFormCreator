@@ -16,6 +16,12 @@ export const checkIfUnique = async <T, K extends keyof T>(attributes: ICheckIfUn
   }
 }
 
+export interface ICheckLength<T> {
+  firstValue: T
+  secondValue: T
+}
+
+// TODO: change to be more generic (get 2 arrays that should be the same length)
 export const checkLengthSelect = (_: any, body: SelectData): void => {
   const areTheSameLength = body.values.length === body.defaultCheck.length
   if (!areTheSameLength) {
@@ -26,7 +32,6 @@ export const checkLengthSelect = (_: any, body: SelectData): void => {
 export const checkIfMaxIsLoverThanMin = (_: any, body: FormFieldData): void => {
   if (body.maxValue !== undefined && body.minValue !== undefined) {
     const isMaxHigher = body.maxValue > body.minValue
-    console.log(isMaxHigher)
     if (!isMaxHigher) {
       throw 'MaxValue must be higher than MinValue'
     }

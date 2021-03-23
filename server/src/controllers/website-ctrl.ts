@@ -8,17 +8,17 @@ import {
   factoryUpdateEndpoint,
 } from '../helpers/ctrl-factory'
 import { anyOfTypes } from '../helpers/models'
-import { IAdditionalLogicElement, ILogic, IAdditionalLogic, IAdditionalValues } from '../helpers/additionalLogic'
+import { IAdditionalLogicElement, ILogic, IAdditionalLogic } from '../helpers/additionalLogic'
 
 // POST /api/websites
-const checkIfNameIsUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+const checkIfNameIsUnique: IAdditionalLogicElement<anyOfTypes<ILogic>> = {
   validator: checkIfUnique,
   additionalVariables: {
     model: Website,
     key: "name"
   }
 }
-const checkIfUrlIsUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+const checkIfUrlIsUnique: IAdditionalLogicElement<anyOfTypes<ILogic>> = {
   validator: checkIfUnique,
   additionalVariables: {
     model: Website,

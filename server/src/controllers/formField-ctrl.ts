@@ -6,18 +6,18 @@ import {
   factoryGetOneByIdEndpoint,
   factoryUpdateEndpoint
 } from '../helpers/ctrl-factory'
-import { IAdditionalLogicElement, ILogic, IAdditionalValues, IAdditionalLogic } from '../helpers/additionalLogic'
+import { IAdditionalLogicElement, ILogic, IAdditionalLogic } from '../helpers/additionalLogic'
 import { anyOfTypes } from '../helpers/models'
 import { checkIfMaxIsLoverThanMin, checkIfRegexIsValid } from '../helpers/validators'
 
 // POST /api/formFields
-const checkMaxIsHeigher: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfMaxIsLoverThanMin"]> = {
+const checkMaxIsHeigher: IAdditionalLogicElement<anyOfTypes<ILogic>> = {
   validator: checkIfMaxIsLoverThanMin,
-  additionalVariables: null
+  additionalVariables: undefined
 }
-const checkRegexIfIsValid: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfRegexIsValid"]> = {
+const checkRegexIfIsValid: IAdditionalLogicElement<anyOfTypes<ILogic>> = {
   validator: checkIfRegexIsValid,
-  additionalVariables: null
+  additionalVariables: undefined
 }
 const createValidation: IAdditionalLogic = [
   checkMaxIsHeigher,

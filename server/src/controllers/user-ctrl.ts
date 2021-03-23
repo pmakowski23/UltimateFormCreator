@@ -8,9 +8,9 @@ import {
   factoryUpdateEndpoint,
 } from '../helpers/ctrl-factory'
 import { anyOfTypes } from '../helpers/models';
-import { IAdditionalLogicElement, IAdditionalLogic, ILogic, IAdditionalValues } from '../helpers/additionalLogic';
+import { IAdditionalLogicElement, IAdditionalLogic, ILogic } from '../helpers/additionalLogic';
 
-const checkTokenIfUnique: IAdditionalLogicElement<anyOfTypes<ILogic>, IAdditionalValues["checkIfUnique"]> = {
+const checkTokenIfUnique: IAdditionalLogicElement<anyOfTypes<ILogic>> = {
   validator: checkIfUnique,
   additionalVariables: {
     model: User,

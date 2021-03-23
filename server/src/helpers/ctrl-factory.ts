@@ -4,9 +4,8 @@ import mongoose, { CallbackError, QueryOptions } from 'mongoose'
 import capitalize from './capitalize'
 import { IAdditionalLogic } from './additionalLogic';
 
-
 export const factoryCreateEndpoint =
-  (model: anyOfTypes<IModelTypes>, additionalLogic?: IAdditionalLogic) =>
+  <T extends IAdditionalLogic>(model: anyOfTypes<IModelTypes>, additionalLogic?: T) =>
     async (req: Request, res: Response): Promise<Response | undefined> => {
       const body = req.body;
 

@@ -1,13 +1,19 @@
 import { anyOfTypes, IModelKeys, IModelTypes } from "./models"
 import { checkIfMaxIsLoverThanMin, checkIfRegexIsValid, checkIfUnique, checkLengthSelect, ICheckIfUnique } from "./validators"
 
-export type IAdditionalLogicElement<T extends anyOfTypes<ILogic>, K extends anyOfTypes<IAdditionalValues>> =
+export type IAdditionalLogicElement<T extends anyOfTypes<ILogic>> =
   {
     validator: T
-    additionalVariables: K
+    additionalVariables: (
+      T extends ILogic["checkIfUnique"] ? IAdditionalValues["checkIfUnique"] :
+      T extends ILogic["checkLengthSelect"] ? IAdditionalValues["checkLengthSelect"] :
+      T extends ILogic["checkIfMaxIsLoverThanMin"] ? IAdditionalValues["checkIfMaxIsLoverThanMin"] :
+      T extends ILogic["checkIfRegexIsValid"] ? IAdditionalValues["checkIfRegexIsValid"] :
+      undefined
+    )
   }
 
-export type IAdditionalLogic = IAdditionalLogicElement<anyOfTypes<ILogic>, anyOfTypes<IAdditionalValues>>[]
+export type IAdditionalLogic = IAdditionalLogicElement<anyOfTypes<ILogic>>[]
 
 
 export interface ILogic {
@@ -19,7 +25,7 @@ export interface ILogic {
 
 export interface IAdditionalValues {
   checkIfUnique: ICheckIfUnique<anyOfTypes<IModelTypes>, anyOfTypes<IModelKeys>>
-  checkLengthSelect: null
-  checkIfMaxIsLoverThanMin: null
-  checkIfRegexIsValid: null
+  checkLengthSelect: undefined
+  checkIfMaxIsLoverThanMin: undefined
+  checkIfRegexIsValid: undefined
 }

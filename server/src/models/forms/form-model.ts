@@ -4,7 +4,7 @@ export interface FormData {
   website: string;
   genId: string;
   name: string;
-  formField: [string];
+  formField: Array<string>;
 }
 
 export interface IForm extends FormData, Document {

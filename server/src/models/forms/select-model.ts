@@ -2,8 +2,8 @@ import mongoose, { Schema, Document } from 'mongoose'
 
 export interface SelectData {
   whichSelect: number,
-  values: [string];
-  defaultCheck: [boolean];
+  values: Array<string>;
+  defaultCheck: Array<boolean>;
 }
 
 export interface ISelect extends SelectData, Document {
