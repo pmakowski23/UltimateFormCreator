@@ -6,7 +6,7 @@ const App: FunctionComponent = () => {
     <div className="min-h-screen bg-cyan-900 flex flex-col justify-center">
       <div className="max-w-md w-full mx-auto">
         <div className="text-center font-medium text-xl">
-          Remembers to not use your bank credentials here. We haven&apost spend much time on security
+          Remembers to not use your bank credentials here. We haven&apos;t spend much time on security
         </div>
       </div>
       <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-gray-300">
@@ -28,6 +28,7 @@ const App: FunctionComponent = () => {
               Submit
             </button>
           </div>
+          <img id="myImage" data-src="holder.js/300x200"></img>
         </form>
       </div>
     </div>
