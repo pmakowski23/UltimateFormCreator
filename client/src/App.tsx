@@ -28,7 +28,6 @@ const App: FunctionComponent = () => {
               Submit
             </button>
           </div>
-          <img id="myImage" data-src="holder.js/300x200"></img>
         </form>
       </div>
     </div>
