@@ -1,6 +1,10 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 
-export const Layout: FunctionComponent = ({ children }) => {
+interface ILayout {
+  children: React.ReactChild;
+}
+
+export const Layout: FC<ILayout> = ({ children }) => {
   return (
     <div className="bg-theme-main h-screen p-10">
       <div className="bg-theme-secondary h-full">{children}</div>
