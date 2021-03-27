@@ -1,3 +1,4 @@
+import { css } from '@emotion/css';
 import { FC } from 'react';
 
 interface ILayout {
@@ -6,8 +7,14 @@ interface ILayout {
 
 export const Layout: FC<ILayout> = ({ children }) => {
   return (
-    <div className="bg-theme-main h-screen p-10">
-      <div className="bg-theme-secondary h-full">{children}</div>
+    <div
+      className={css({
+        backgroundColor: '#424250',
+        padding: '40px',
+        height: '100vh',
+      })}
+    >
+      <div className={css({ backgroundColor: '#33333d', height: '100%' })}>{children}</div>
     </div>
   );
 };
