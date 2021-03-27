@@ -6,6 +6,7 @@ module.exports = {
       theme: {
         main: '#424250',
         secondary: '#33333D',
+        button: '#2B2B34',
       },
     },
     extend: {},

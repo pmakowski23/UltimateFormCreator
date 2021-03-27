@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 interface ILayout {
-  children: React.ReactChild;
+  children: React.ReactChild[] | React.ReactChild;
 }
 
 export const Layout: FC<ILayout> = ({ children }) => {
