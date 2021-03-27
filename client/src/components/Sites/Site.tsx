@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { FC } from 'react';
-import { Paragraph } from '../styles/Paragraph';
+import { Paragraph } from '../shared/Paragraph';
 
 const requestImageFile = require.context('../../images', true, /^\.\/.*\.svg$/);
 
@@ -24,6 +24,10 @@ export const Site: FC<ISite> = ({ img, siteName }) => {
         alignItems: 'center',
         justifyContent: 'center',
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        ':hover': {
+          border: '1px solid #4CAF50',
+          cursor: 'pointer',
+        },
       })}
     >
       <img className={css({ height: '170px' })} src={requestImageFile(imgUrl).default} alt={img}></img>
