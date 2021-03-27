@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Heading } from '../styles/Heading';
+import { Heading } from './Heading';
 import logo from '../../images/logo.svg';
 import { css } from '@emotion/css';
 
