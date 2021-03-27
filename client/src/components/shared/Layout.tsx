@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import { FC } from 'react';
 
 interface ILayout {
-  children: React.ReactChild[] | React.ReactChild;
+  children: React.ReactNode;
 }
 
 export const Layout: FC<ILayout> = ({ children }) => {
