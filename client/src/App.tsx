@@ -3,7 +3,7 @@ import './App.css';
 import { FunctionComponent } from 'react';
 
 const App: FunctionComponent = () => {
-  return <Layout>To działa</Layout>;
+  return <Layout>Yup, it still works. At least i hope so</Layout>;
 };
 
 export default App;

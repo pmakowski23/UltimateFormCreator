@@ -9,6 +9,7 @@ export const Layout: FC<ILayout> = ({ children }) => {
   return (
     <div
       className={css({
+        boxSizing: 'border-box',
         backgroundColor: '#424250',
         padding: '40px',
         height: '100vh',
