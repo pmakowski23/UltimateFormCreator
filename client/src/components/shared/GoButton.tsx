@@ -4,7 +4,7 @@ import next from '../../images/next.svg';
 
 export const GoButton: FC = () => {
   return (
-    <>
+    <div className={css({ width: '75px', height: '75px', display: 'block' })}>
       <div
         className={css({
           width: '75px',
@@ -44,6 +44,6 @@ export const GoButton: FC = () => {
           zIndex: 5,
         })}
       ></div>
-    </>
+    </div>
   );
 };
