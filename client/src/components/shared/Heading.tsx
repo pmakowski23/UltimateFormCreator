@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import { FC } from 'react';
 
 interface IHeading {
-  children: string;
+  children: string | string[];
 }
 
 export const Heading: FC<IHeading> = ({ children }) => {
