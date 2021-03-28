@@ -16,7 +16,9 @@ export const Logo: FC = () => {
       })}
     >
       <img className={css({ height: '200px' })} src={logo} alt="logo" />
-      <Heading>Ultimate Form Creator</Heading>
+      <div className={css({ paddingTop: '15px' })}>
+        <Heading>Ultimate Form Creator</Heading>
+      </div>
     </div>
   );
 };
