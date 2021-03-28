@@ -34,7 +34,7 @@ export const Sites: FC = () => {
         <div
           className={css({
             display: 'grid',
-            gridTemplateColumns: '2fr 1fr',
+            gridTemplateColumns: '3fr 1fr',
             gridTemplateRows: 'calc(100vh - 230px)',
           })}
         >
