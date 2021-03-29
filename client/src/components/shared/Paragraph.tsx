@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import { FC } from 'react';
 
 interface IParagraph {
-  children: string;
+  children: string | string[];
 }
 
 export const Paragraph: FC<IParagraph> = ({ children }) => {
