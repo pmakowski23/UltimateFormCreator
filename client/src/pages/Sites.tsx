@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-import { Logo } from '../components/shared/Logo';
 import { Site } from '../components/Sites/Site';
 import { Heading } from '../components/shared/Heading';
 import { css } from '@emotion/css';
+import { Sidebar } from '../components/shared/Sidebar';
 
 interface ISite {
   _id: string;
@@ -25,7 +25,6 @@ export const Sites: FC = () => {
   return (
     <div
       className={css({
-        height: '100%',
         padding: '75px',
       })}
     >
@@ -36,7 +35,7 @@ export const Sites: FC = () => {
           gridTemplateRows: 'calc(100vh - 230px)',
         })}
       >
-        <div className={css({ borderRight: '1px solid #4CAF50' })}>
+        <div>
           <div className={css({ margin: '15px' })}>
             <Heading>Welcome {sites[0].user}</Heading>
             <Heading>Your Sites</Heading>
@@ -61,16 +60,7 @@ export const Sites: FC = () => {
               : null}
           </div>
         </div>
-        <div
-          className={css({
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          })}
-        >
-          <Logo />
-        </div>
+        <Sidebar />
       </div>
     </div>
   );

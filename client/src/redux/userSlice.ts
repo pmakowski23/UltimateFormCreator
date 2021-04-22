@@ -25,7 +25,7 @@ export const counterSlice = createSlice({
 
 export const { setActiveUser, setUserLogout } = counterSlice.actions;
 
-export const selectUserName = (state: { user: useStateType }) => state.user.userName;
-export const selectUserEmail = (state: { user: useStateType }) => state.user.userEmail;
+export const selectUserName = (state: { user: useStateType }): string | null => state.user.userName;
+export const selectUserEmail = (state: { user: useStateType }): string | null => state.user.userEmail;
 
 export default counterSlice.reducer;
